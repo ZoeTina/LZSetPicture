@@ -95,6 +95,8 @@
     imagePickerController.delegate = (id)self;
     imagePickerController.allowsEditing = YES;  // 打开图片后是否允许编辑
     imagePickerController.sourceType = sourceType;
+    imagePickerController.navigationController.navigationBar.barTintColor = kColorWithRGB(26, 26, 29);
+
     //    imagePickerController.navigationController.navigationBarHidden = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:imagePickerController

@@ -488,6 +488,7 @@
 				DEVELOPMENT_TEAM = 8RL8MGBZ32;
 				GCC_PREFIX_HEADER = LZSetPicture/AppConstant.h;
 				INFOPLIST_FILE = LZSetPicture/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Triste.LZSetPicture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -503,6 +504,7 @@
 				DEVELOPMENT_TEAM = 8RL8MGBZ32;
 				GCC_PREFIX_HEADER = LZSetPicture/AppConstant.h;
 				INFOPLIST_FILE = LZSetPicture/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Triste.LZSetPicture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
