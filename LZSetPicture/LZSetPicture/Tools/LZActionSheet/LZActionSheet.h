@@ -48,7 +48,7 @@ typedef void(^LZActionSheetBlock)(NSInteger buttonIndex);
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, weak) id<LZActionSheetDelegate> delegate;
 
-- (void)show;
+- (void)showView;
 
 @end
 

@@ -13,9 +13,9 @@
 
 #define LZTitleHeight 60.0f         // 标题高度
 #define LZButtonHeight  49.0f       // 按钮高度
-#define LZDarkShadowViewAlpha 0.35f // 透明度
-#define LZShowAnimateDuration 0.0f // 显示动画时间,0.25
-#define LZHideAnimateDuration 0.0f // 隐藏动画时间,0.25
+#define LZDarkShadowViewAlpha 0.45f // 透明度
+#define LZShowAnimateDuration 0.25f // 显示动画时间,0.25
+#define LZHideAnimateDuration 0.25f // 隐藏动画时间,0.25
 
 @interface LZActionSheet () {
     
@@ -105,11 +105,11 @@
     
     _darkShadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     //之前的背景颜色为黑色半透明
-    _darkShadowView.backgroundColor = kColorWithRGB(20, 20, 20);
+    _darkShadowView.backgroundColor = [UIColor blackColor];
     _darkShadowView.alpha = 0.0f;
     [self addSubview:_darkShadowView];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_dismissView:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissViewOnClick:)];
     [_darkShadowView addGestureRecognizer:tap];
     
     
@@ -134,7 +134,7 @@
         button.tag = i;
         [button setTitle:_otherButtonTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor whiteColor];
-        button.titleLabel.font = LZTitleFont;
+        button.titleLabel.font = [UIFont systemFontOfSize:15.0f];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         if (i==0 && _destructiveButtonTitle.length) {
             [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -143,7 +143,7 @@
     
         UIImage *image = [UIImage imageNamed:@"LZActionSheet.bundle/actionSheetHighLighted.png"];
         [button setBackgroundImage:image forState:UIControlStateHighlighted];
-        [button addTarget:self action:@selector(_didClickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(didClickButton:) forControlEvents:UIControlEventTouchUpInside];
         CGFloat buttonY = LZButtonHeight * (i + (_title.length>0?1:0));
         button.frame = CGRectMake(0, buttonY, kScreenWidth, LZButtonHeight);
         [_buttonBackgroundView addSubview:button];
@@ -163,18 +163,16 @@
     [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     UIImage *image = [UIImage imageNamed:@"LZActionSheet.bundle/actionSheetHighLighted.png"];
     [cancelButton setBackgroundImage:image forState:UIControlStateHighlighted];
-    [cancelButton addTarget:self action:@selector(_didClickButton:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addTarget:self action:@selector(didClickButton:) forControlEvents:UIControlEventTouchUpInside];
     CGFloat buttonY = LZButtonHeight * (_otherButtonTitles.count + (_title.length>0?1:0)) + 5;
     cancelButton.frame = CGRectMake(0, buttonY, kScreenWidth, LZButtonHeight);
     [_buttonBackgroundView addSubview:cancelButton];
     
     CGFloat height = LZButtonHeight * (_otherButtonTitles.count+1 + (_title.length>0?1:0)) + 5;
-    //修改之前是有动画的
     _buttonBackgroundView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, height);
-//    _buttonBackgroundView.frame = CGRectMake(0, kScreenHeight - height, kScreenWidth, height);
 }
 
-- (void)_didClickButton:(UIButton *)button {
+- (void)didClickButton:(UIButton *)button {
 
     if (_delegate && [_delegate respondsToSelector:@selector(actionSheet:didClickedButtonAtIndex:)]) {
         [_delegate actionSheet:self didClickedButtonAtIndex:button.tag];
@@ -184,10 +182,10 @@
         self.actionSheetBlock(button.tag);
     }
     
-    [self _hide];
+    [self disMissView];
 }
 
-- (void)_dismissView:(UITapGestureRecognizer *)tap {
+- (void)dismissViewOnClick:(UITapGestureRecognizer *)tap {
 
     if (_delegate && [_delegate respondsToSelector:@selector(actionSheet:didClickedButtonAtIndex:)]) {
         [_delegate actionSheet:self didClickedButtonAtIndex:_otherButtonTitles.count];
@@ -197,10 +195,10 @@
         self.actionSheetBlock(_otherButtonTitles.count);
     }
     
-    [self _hide];
+    [self disMissView];
 }
 
-- (void)show {
+- (void)showView {
 
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self];
@@ -214,11 +212,11 @@
     }];
 }
 
-- (void)_hide {
+- (void)disMissView {
     
     [UIView animateWithDuration:LZHideAnimateDuration animations:^{
         _darkShadowView.alpha = 0;
-//        _buttonBackgroundView.transform = CGAffineTransformIdentity;
+        _buttonBackgroundView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         self.hidden = YES;
         [self removeFromSuperview];

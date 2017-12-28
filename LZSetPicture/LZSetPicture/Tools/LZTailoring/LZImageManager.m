@@ -83,7 +83,7 @@ LZSingletonM(Manager);
                                                          
                                                          [self clickedButtonAtIndex:buttonIndex controller:controller];
                                                      }];
-    [actionSheet show];
+    [actionSheet showView];
     
 }
 

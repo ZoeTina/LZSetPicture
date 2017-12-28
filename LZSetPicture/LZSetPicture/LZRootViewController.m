@@ -54,15 +54,15 @@
 - (void) showSystemActionSheet{
     lz(weakSelf);
 
-    LZActionSheet *actionSheet = [[LZActionSheet alloc] initWithTitle:nil
+    LZActionSheet *actionSheet = [[LZActionSheet alloc] initWithTitle:@"设置头像"
                                                     cancelButtonTitle:@"取消"
-                                               destructiveButtonTitle:nil
+                                               destructiveButtonTitle:@""
                                                     otherButtonTitles:@[@"拍照",@"从手机相册选择"]
                                                      actionSheetBlock:^(NSInteger buttonIndex) {
                                                          
                                                          [weakSelf clickedButtonAtIndex:buttonIndex];
                                                      }];
-    [actionSheet show];
+    [actionSheet showView];
 }
 
 /** 选择拍照还是从相册中选择 */
